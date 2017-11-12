@@ -1,11 +1,22 @@
 package deepl
 
-import "encoding/json"
-import "strings"
+import (
+	"encoding/json"
+	"fmt"
+	"strings"
+)
 
 func createRequestBody(text string, fromLang string, toLang string) ([]byte, error) {
 	fromLang = strings.ToUpper(fromLang)
 	toLang = strings.ToUpper(toLang)
+
+	if FromLangAvailable(fromLang) {
+		return nil, fmt.Errorf("source language %s is not supported by deepl ", fromLang)
+	}
+
+	if ToLangAvailable(toLang) {
+		return nil, fmt.Errorf("target language %s is not supported by deepl ", toLang)
+	}
 
 	type Job struct {
 		Kind          string `json:"kind"`
