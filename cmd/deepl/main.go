@@ -5,7 +5,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/thesoenke/godeepl"
+	"github.com/thesoenke/go-deepl"
 )
 
 func main() {
@@ -22,6 +22,6 @@ func main() {
 	}
 
 	for _, translation := range translations {
-		fmt.Printf("%f: %s\n", translation.Probability, translation.Sentence)
+		fmt.Printf("%f: %s\n", translation.Probability, translation.Text)
 	}
 }

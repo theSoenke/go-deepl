@@ -33,11 +33,12 @@ func Translate(text string, fromLang string, toLang string) ([]Translation, erro
 		return nil, err
 	}
 
-	answer, err := parseResponse(respBody)
-	return answer, err
+	translations, err := parseResponse(respBody)
+	return translations, err
 }
 
-func TargetLangAvailable(lang string) bool {
+// ToLangAvailable returns true when language code is a supported target language
+func ToLangAvailable(lang string) bool {
 	supported := []string{"DE", "EN", "FR", "ES", "IT", "NL", "PL"}
 	lang = strings.ToUpper(lang)
 	for _, l := range supported {
@@ -49,7 +50,8 @@ func TargetLangAvailable(lang string) bool {
 	return false
 }
 
-func SourceLangAvailable(lang string) bool {
+// FromLangAvailable returns true when language code is a supported source language
+func FromLangAvailable(lang string) bool {
 	supported := []string{"AUTO", "DE", "EN", "FR", "ES", "IT", "NL", "PL"}
 	lang = strings.ToUpper(lang)
 	for _, l := range supported {

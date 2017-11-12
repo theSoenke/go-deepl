@@ -4,7 +4,7 @@ import "encoding/json"
 
 // Translation contains a resulting translation
 type Translation struct {
-	Sentence    string
+	Text        string
 	Probability float32
 }
 
@@ -47,7 +47,7 @@ func parseResponse(message []byte) ([]Translation, error) {
 	translations := make([]Translation, 0)
 	for _, beam := range beams {
 		translation := Translation{
-			Sentence:    beam.PostprocessedSentence,
+			Text:        beam.PostprocessedSentence,
 			Probability: beam.TotalLogProb,
 		}
 		translations = append(translations, translation)

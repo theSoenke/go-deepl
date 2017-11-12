@@ -1,8 +1,12 @@
 package deepl
 
 import "encoding/json"
+import "strings"
 
 func createRequestBody(text string, fromLang string, toLang string) ([]byte, error) {
+	fromLang = strings.ToUpper(fromLang)
+	toLang = strings.ToUpper(toLang)
+
 	type Job struct {
 		Kind          string `json:"kind"`
 		RawEnSentence string `json:"raw_en_sentence"`
