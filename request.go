@@ -10,11 +10,11 @@ func createRequestBody(text string, sourceLang string, targetLang string) ([]byt
 	sourceLang = strings.ToUpper(sourceLang)
 	targetLang = strings.ToUpper(targetLang)
 
-	if !SourceLangAvailable(sourceLang) {
+	if !LangAvailable(sourceLang) {
 		return nil, fmt.Errorf("source language %s is not supported by deepl ", sourceLang)
 	}
 
-	if !TargetLangAvailable(targetLang) {
+	if !LangAvailable(targetLang) {
 		return nil, fmt.Errorf("target language %s is not supported by deepl ", targetLang)
 	}
 
