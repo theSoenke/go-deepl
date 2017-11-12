@@ -20,14 +20,13 @@ func Translate(text string, fromLang string, toLang string) ([]Translation, erro
 		return nil, err
 	}
 
-	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
 	client := http.Client{}
 	resp, err := client.Do(req)
 	if err != nil {
 		return nil, err
 	}
 
-	defer req.Body.Close()
+	defer resp.Body.Close()
 	respBody, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		return nil, err
