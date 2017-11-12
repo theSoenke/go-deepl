@@ -6,16 +6,16 @@ import (
 	"strings"
 )
 
-func createRequestBody(text string, fromLang string, toLang string) ([]byte, error) {
-	fromLang = strings.ToUpper(fromLang)
-	toLang = strings.ToUpper(toLang)
+func createRequestBody(text string, sourceLang string, targetLang string) ([]byte, error) {
+	sourceLang = strings.ToUpper(sourceLang)
+	targetLang = strings.ToUpper(targetLang)
 
-	if FromLangAvailable(fromLang) {
-		return nil, fmt.Errorf("source language %s is not supported by deepl ", fromLang)
+	if !SourceLangAvailable(sourceLang) {
+		return nil, fmt.Errorf("source language %s is not supported by deepl ", sourceLang)
 	}
 
-	if ToLangAvailable(toLang) {
-		return nil, fmt.Errorf("target language %s is not supported by deepl ", toLang)
+	if !TargetLangAvailable(targetLang) {
+		return nil, fmt.Errorf("target language %s is not supported by deepl ", targetLang)
 	}
 
 	type Job struct {
@@ -24,9 +24,9 @@ func createRequestBody(text string, fromLang string, toLang string) ([]byte, err
 	}
 
 	type Lang struct {
-		UserPreferredLangs   []string `json:"user_preferred_langs"`
-		SourceLangUserSelect string   `json:"source_lang_user_selected"`
-		TargetLang           string   `json:"target_lang"`
+		UserPreferredLangs     []string `json:"user_preferred_langs"`
+		SourceLangUserSelected string   `json:"source_lang_user_selected"`
+		TargetLang             string   `json:"target_lang"`
 	}
 
 	type Params struct {
@@ -46,9 +46,9 @@ func createRequestBody(text string, fromLang string, toLang string) ([]byte, err
 		RawEnSentence: text,
 	}
 	lang := Lang{
-		UserPreferredLangs:   []string{fromLang, toLang},
-		SourceLangUserSelect: fromLang,
-		TargetLang:           toLang,
+		UserPreferredLangs:     []string{sourceLang, targetLang},
+		SourceLangUserSelected: sourceLang,
+		TargetLang:             targetLang,
 	}
 	params := Params{
 		Jobs:     []Job{job},

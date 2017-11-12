@@ -13,10 +13,10 @@ func main() {
 		log.Fatal("Invalid number of arguments")
 	}
 
-	sentence := os.Args[1]
-	fromLang := os.Args[2]
-	toLang := os.Args[3]
-	translations, err := deepl.Translate(sentence, fromLang, toLang)
+	text := os.Args[1]
+	sourceLang := os.Args[2]
+	targetLang := os.Args[3]
+	translations, err := deepl.Translate(text, sourceLang, targetLang)
 	if err != nil {
 		log.Fatal(err)
 	}
